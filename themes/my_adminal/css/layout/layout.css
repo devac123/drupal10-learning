@@ -1,0 +1,14 @@
+.adminimal .content-header{
+    background-color: #183661;
+    padding: 1rem 0 0;
+}
+.menu .menu-item{
+    list-style-type: none;
+    text-decoration: none;
+}
+.messages.messages--error{
+    display: none;
+}
+.layout-container{
+    margin: 0 0;
+}

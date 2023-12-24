@@ -1,0 +1,8 @@
+# Schema for the configuration files of the My adminal theme.
+my_adminal.settings:
+  type: theme_settings
+  label: 'My adminal settings'
+  mapping:
+    example:
+      type: string
+      label: Example
