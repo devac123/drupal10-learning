@@ -1,6 +1,6 @@
 .adminimal .content-header{
-    background-color: #183661;
-    padding: 1rem 0 0;
+    background-color: #ffffff;
+    padding: 1rem 0 1rem 0;
 }
 .menu .menu-item{
     list-style-type: none;
@@ -12,3 +12,12 @@
 .layout-container{
     margin: 0 0;
 }
+.region-header{
+    display: flex;
+    justify-content: space-between;
+}
+.region-header .menu .menu-item a{
+   color: #000000 !important;  
+}
+
+

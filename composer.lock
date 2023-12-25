@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8274217620bdfe043c13fb6335ae1acb",
+    "content-hash": "e8df6f0056b403d716a90c5e58f97074",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2811,6 +2811,50 @@
             }
         },
         {
+            "name": "drupal/paragraph_view_mode",
+            "version": "dev-3.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/paragraph_view_mode.git",
+                "reference": "07d9530349265882c9a15b59faf17e0d7396c83e"
+            },
+            "require": {
+                "drupal/core": "^8.9 || ^9.0 || ^10",
+                "drupal/paragraphs": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-3.x": "3.x-dev"
+                },
+                "drupal": {
+                    "version": "3.1.2+4-dev",
+                    "datestamp": "1681206404",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Mariusz Andrzejewski (sayco)",
+                    "homepage": "https://www.drupal.org/u/sayco",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "This tiny module is meant to easily reuse the same paragraph types with different view mode (display mode).",
+            "homepage": "https://www.drupal.org/project/paragraph_view_mode",
+            "support": {
+                "source": "https://git.drupalcode.org/project/paragraph_view_mode",
+                "issues": "https://www.drupal.org/project/issues/paragraph_view_mode"
+            }
+        },
+        {
             "name": "drupal/paragraphs",
             "version": "1.16.0",
             "source": {
@@ -3182,6 +3226,66 @@
             "homepage": "https://www.drupal.org/project/token",
             "support": {
                 "source": "https://git.drupalcode.org/project/token"
+            }
+        },
+        {
+            "name": "drupal/viewsreference",
+            "version": "dev-2.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/viewsreference.git",
+                "reference": "7e23834d34311ab4422505b7eecfac268e1a4bc2"
+            },
+            "require": {
+                "drupal/core": "^9.3 || ^10"
+            },
+            "conflict": {
+                "drupal/viewsreferennce": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.0-beta6+2-dev",
+                    "datestamp": "1698848565",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "jasonawant",
+                    "homepage": "https://www.drupal.org/user/589890"
+                },
+                {
+                    "name": "joekers",
+                    "homepage": "https://www.drupal.org/user/2229066"
+                },
+                {
+                    "name": "NewZeal",
+                    "homepage": "https://www.drupal.org/user/93571"
+                },
+                {
+                    "name": "seanB",
+                    "homepage": "https://www.drupal.org/user/545912"
+                }
+            ],
+            "description": "Views reference",
+            "homepage": "http://drupal.org/project/viewsreference",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/viewsreference",
+                "issues": "https://www.drupal.org/project/issues/viewsreference"
             }
         },
         {
@@ -7517,7 +7621,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "drupal/inline_entity_form": 20
+        "drupal/inline_entity_form": 20,
+        "drupal/paragraph_view_mode": 20,
+        "drupal/viewsreference": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
