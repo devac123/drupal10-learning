@@ -1,0 +1,7 @@
+smart_shopping.product_page:
+  path: '/smart-shopping/product/{product_name}'
+  defaults:
+    _controller: '\Drupal\smart_shopping\Controller\SmartShoppingProductController::productPage'
+    _title: 'Product Page'
+  requirements:
+    _permission: 'access content'
