@@ -1,0 +1,23 @@
+<?php
+
+function example_route_subscriber_preprocess(&$variables, $hook) {
+    
+    $path_alias_manager = \Drupal::service('path_alias.manager');
+    // getRequestTime
+    $path_matcher = \Drupal::service('path.matcher')->isFrontPage();
+    // isFrontPage 
+    $request_stack = \Drupal::service('request_stack');
+    // getMainRequest  , getCurrentRequest
+    //example_Url =   http://localhost:8080/drupal10-learning/node/5?abc=abc1
+    // $request_stack->getMainRequest()->query->get('abc') = abc1
+
+    $path_current = \Drupal::service('path.current');
+    $routeInfo = \Drupal::service('router.route_provider');
+    $routeName = \Drupal::service('current_route_match');
+    $isValidPath = \Drupal::service('path.validator');
+    $url = \Drupal::service('url_generator');
+
+    // dd($url);
+
+    
+}
