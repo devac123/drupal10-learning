@@ -132,6 +132,25 @@ class SiteInformationForm extends ConfigFormBase {
       '#description' => $this->t('Optionally, specify a relative URL to display as the front page. Leave blank to display the default front page.'),
       '#field_prefix' => $this->requestContext->getCompleteBaseUrl(),
     ];
+    
+    $form['front_page_for_roles'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Front page For Different roles'),
+      '#open' => TRUE,
+    ];
+    $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+    foreach ($roles as $role => $value) {
+     
+      $form['front_page_for_roles']['front_page'][$role] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Front page user with '. $role),
+        '#default_value' => $site_config->get($role) ?? $front_page,
+        '#size' => 40,
+        '#description' => $this->t('Optionally, specify a relative URL to display as the front page. Leave blank to display the default front page.'),
+        '#field_prefix' => $this->requestContext->getCompleteBaseUrl(),
+      ];
+    }
+    
     $form['error_page'] = [
       '#type' => 'details',
       '#title' => $this->t('Error pages'),
@@ -205,14 +224,21 @@ class SiteInformationForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->config('system.site')
-      ->set('name', $form_state->getValue('site_name'))
-      ->set('mail', $form_state->getValue('site_mail'))
-      ->set('slogan', $form_state->getValue('site_slogan'))
-      ->set('page.front', $form_state->getValue('site_frontpage'))
-      ->set('page.403', $form_state->getValue('site_403'))
-      ->set('page.404', $form_state->getValue('site_404'))
-      ->save();
+    $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+    $config = $this->config('system.site');
+    foreach ($roles as $role => $value) {
+      $config
+      ->set($role, $form_state->getValue($role));
+    }
+    
+    $config
+    ->set('name', $form_state->getValue('site_name'))
+    ->set('mail', $form_state->getValue('site_mail'))
+    ->set('slogan', $form_state->getValue('site_slogan'))
+    ->set('page.front', $form_state->getValue('site_frontpage'))
+    ->set('page.403', $form_state->getValue('site_403'))
+    ->set('page.404', $form_state->getValue('site_404'))
+    ->save();
 
     parent::submitForm($form, $form_state);
   }
