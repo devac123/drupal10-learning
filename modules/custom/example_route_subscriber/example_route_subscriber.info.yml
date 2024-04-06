@@ -1,0 +1,5 @@
+name: 'Example Route Subscriber'
+type: module
+description: 'example_route_subscriber'
+package: Custom
+core_version_requirement: ^10
