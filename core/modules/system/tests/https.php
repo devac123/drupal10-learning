@@ -22,6 +22,7 @@ foreach ($_SERVER as &$value) {
   $value = str_replace('http://', 'https://', $value);
 }
 
+
 $kernel = new TestKernel('testing', $autoloader, TRUE);
 
 $request = Request::createFromGlobals();

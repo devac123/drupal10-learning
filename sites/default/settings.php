@@ -264,7 +264,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = 'wa37MUOuz8QVd5wzSIq_mppRnJ9sl7pl5ph12UbND3EQCUtr3LMZUHknwyPxNuxGwCvbDRwZMQ';
+$settings['hash_salt'] = 'jMj9zRgxSdcNyC769uQXi3Zl09oIrKZv_owXT3uyDf_PyAc2UwzZdjxpzUddJqVDqN37_st3Gw';
 
 /**
  * Deployment identifier.
@@ -532,6 +532,25 @@ $settings['update_free_access'] = FALSE;
 # $settings['file_additional_public_schemes'] = ['example'];
 
 /**
+ * File schemes whose paths should not be normalized:
+ *
+ * Normally, Drupal normalizes '/./' and '/../' segments in file URIs in order
+ * to prevent unintended file access. For example, 'private://css/../image.png'
+ * is normalized to 'private://image.png' before checking access to the file.
+ *
+ * On Windows, Drupal also replaces '\' with '/' in URIs for the local
+ * filesystem.
+ *
+ * If file URIs with one or more scheme should not be normalized like this, then
+ * list the schemes here. For example, if 'porcelain://china/./plate.png' should
+ * not be normalized to 'porcelain://china/plate.png', then add 'porcelain' to
+ * this array. In this case, make sure that the module providing the 'porcelain'
+ * scheme does not allow unintended file access when using '/../' to move up the
+ * directory tree.
+ */
+# $settings['file_sa_core_2023_005_schemes'] = ['porcelain'];
+
+/**
  * Private file path:
  *
  * A local file system path where private files will be stored. This directory
@@ -647,7 +666,7 @@ $settings['update_free_access'] = FALSE;
 /**
  * Load services definition file.
  */
-$settings['container_yamls'][] = $app_root . '/' . $site_path . '/abc-services.yml';
+$settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
 
 /**
  * Override the default service container class.
@@ -810,8 +829,19 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 #
-
-if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-  include $app_root . '/' . $site_path . '/settings.local.php';
-}
-
+# if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+#   include $app_root . '/' . $site_path . '/settings.local.php';
+# }
+$config['system.logging']['error_level'] = 'verbose';
+$databases['default']['default'] = array (
+  'database' => 'drupal10',
+  'username' => 'root',
+  'password' => '',
+  'prefix' => '',
+  'host' => 'localhost',
+  'port' => '3306',
+  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+  'driver' => 'mysql',
+  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+);
+$settings['config_sync_directory'] = 'sites/default/files/config_kK2IdvyzqPqBxCXP-hdR7G4VM_v_1y2mNvwC5gWqGBhHMO7o_fiWpPOyokpUPDMZIcUUjLpRGg/sync';

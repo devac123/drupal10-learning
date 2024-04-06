@@ -1,0 +1,48 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implement hook_preprcess
+ */
+
+function webform_login_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+    $config = \Drupal::service('config.factory');
+    $site_config = $config->get('system.site');
+    $request_context = \Drupal::service('router.request_context');
+    
+    if($form_id == 'system_site_information_settings'){
+      $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+      $form['front_page_for_roles'] = [
+        '#type' => 'details',
+        '#title' => 'Front page For Different roles',
+        '#open' => TRUE,
+      ];
+      
+      foreach ($roles as $role => $value) {
+        $form['front_page_for_roles']['front_page'][$role] = [
+          '#type' => 'textfield',
+          '#title' => 'Front page user with '. $role,
+          '#default_value' => $site_config->get($role) ?? $front_page,
+          '#size' => 40,
+          '#description' => 'Optionally, specify a relative URL to display as the front page. Leave blank to display the default front page.',
+          '#field_prefix' =>$request_context->getCompleteBaseUrl(),
+        ];
+      }
+      $form['actions']['submit']['#submit'][] = 'mymodule_form_submit';
+      
+    }
+  }
+
+function mymodule_form_submit(array &$form, FormStateInterface $form_state){
+  $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+  $config = \Drupal::service('config.factory')->getEditable('system.site');
+  
+  
+  foreach ($roles as $role => $value) {
+    $role_config = $config->get($role);
+    $config->set($role, $form_state->getValue($role));
+
+  }
+    $config->save();
+} 

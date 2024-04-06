@@ -161,6 +161,7 @@ class UserAuthenticationController extends ControllerBase implements ContainerIn
    *   A response which contains the ID and CSRF token.
    */
   public function login(Request $request) {
+    dd(1);
     $format = $this->getRequestFormat($request);
 
     $content = $request->getContent();

@@ -1,0 +1,15 @@
+webform_login.controller:
+  path: '/webform-login/sdsadasd'
+  defaults:
+    _title: 'dssfdfdsf'
+    _controller: '\Drupal\webform_login\Controller\WebformLoginController'
+  requirements:
+    _permission: 'access content'
+
+webform_login.form:
+  path: '/webform-login/form'
+  defaults:
+    _title: 'Example'
+    _form: 'Drupal\webform_login\Form\ExampleForm'
+  requirements:
+    _permission: 'access content'

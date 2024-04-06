@@ -1,0 +1,10 @@
+services:
+  webform_login.route_subscriber:
+    class: Drupal\webform_login\EventSubscriber\WebformLoginRouteSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  webform_login.route_subscriber1:
+    class: Drupal\webform_login\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }    
