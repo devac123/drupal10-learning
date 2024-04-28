@@ -1,0 +1,6 @@
+services:
+  front_page_by_role.path_processor:
+    class: Drupal\front_page_by_role\PathProcessorManager
+    arguments: ['@config.factory','@current_user','@entity_type.manager']
+    tags:
+      - { name: path_processor_inbound, priority: 200 }

@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Provides functionality to set the front page by user role.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function front_page_by_role_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $config = \Drupal::config('system.site');
+  $configData = $config->getRawData();
+  if ($form_id == 'system_site_information_settings') {
+    $form['front_page_for_roles'] = [
+      '#type' => 'details',
+      '#title' => 'Front Page for Roles',
+      '#open' => TRUE,
+    ];
+    $form['front_page_for_roles']['table'] = [
+      '#type' => 'table',
+      '#header' => [
+        'weight' => 'weight',
+        'role' => 'User Role',
+        'node' => 'Path',
+      ],
+    ];
+
+    $user_roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+
+    foreach ($user_roles as $key => $value) {
+      $form['front_page_for_roles']['table'][$key]['#attributes']['class'] = ['draggable'];
+      $form['front_page_for_roles']['table'][$key]['weight'] = [
+        '#type' => 'weight',
+        '#title' => 'Weight',
+        '#title_display' => 'invisible',
+        '#default_value' => $configData[$key]['weight'] ?? 0,
+        '#attributes' => [
+          'class' => [
+            'draggable-weight',
+          ],
+        ],
+      ];
+      $form['front_page_for_roles']['table'][$key]['role'] = [
+        '#markup' => $value->label(),
+      ];
+      $form['front_page_for_roles']['table'][$key]['node'] = [
+        '#type' => 'textfield',
+        '#size'  => 20,
+        '#default_value' => $configData[$key]['node'] ?? $config->get('page.front'),
+      ];
+    }
+    $form['#submit'][] = 'front_page_by_role_config_handler';
+  }
+}
+
+/**
+ * Submit handler for the front_page_by_role_form_alter form.
+ */
+function front_page_by_role_config_handler($form, FormStateInterface $form_state) {
+  $configValues = $form_state->getValues();
+  $user_roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+  $config = \Drupal::service('config.factory')->getEditable('system.site');
+  foreach ($user_roles as $key => $value) {
+    $configValues['table'][$key] = [
+      'weight' => $configValues['table'][$key]['weight'],
+      'node' => $configValues['table'][$key]['node'],
+    ];
+    $config->set($key, $configValues['table'][$key])->save();
+  }
+}

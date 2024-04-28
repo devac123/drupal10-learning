@@ -1,0 +1,5 @@
+name: Front Page By Role
+type: module
+description: Provides functionality to set the front page according to user role.
+package: Path Processor
+core_version_requirement: ^9 || ^10
